@@ -1,4 +1,4 @@
-import { Box, Grid, SimpleGrid } from '@chakra-ui/core';
+import { SimpleGrid } from '@chakra-ui/core';
 import React from 'react';
 import { getAllPokemon } from '../db';
 import Card from './Card';
