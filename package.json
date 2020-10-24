@@ -18,6 +18,7 @@
 		"web-vitals": "^0.2.4"
 	},
 	"scripts": {
+		"s": "react-scripts start",
 		"start": "yarn build:css && react-scripts start",
 		"build": "yarn build:css && react-scripts build",
 		"test": "react-scripts test",
@@ -42,9 +43,5 @@
 			"last 1 safari version"
 		]
 	},
-	"devDependencies": {
-		"autoprefixer": "^10.0.1",
-		"postcss-cli": "^8.1.0",
-		"tailwindcss": "^1.9.6"
-	}
+	"devDependencies": {}
 }
