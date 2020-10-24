@@ -27,4 +27,11 @@ export type Pokemon = {
 	types: string[];
 };
 
-export const getPokemon = (): Pokemon[] => pokemon;
+export const getAllPokemon = (): Pokemon[] => pokemon;
+export const getPokemonById = (id: number): Pokemon =>
+	pokemon.find((p) => p.id === id)!;
+export const getPokemonPrice = (id: number): number => {
+	const p = getPokemonById(id);
+	const price = p.abilities.length * p.experience;
+	return price;
+};

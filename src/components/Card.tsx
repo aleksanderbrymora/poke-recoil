@@ -1,15 +1,32 @@
-import { Box, Flex, Heading, Image, useColorMode } from '@chakra-ui/core';
+import {
+	Box,
+	Flex,
+	Heading,
+	IconButton,
+	Image,
+	useColorMode,
+} from '@chakra-ui/core';
 import React from 'react';
-import { Pokemon } from '../db';
+import { getPokemonPrice, Pokemon } from '../db';
+import { cartState } from '../atoms/cart';
+import { useRecoilState } from 'recoil';
 
 interface Props {
 	pokemon: Pokemon;
 }
 
-const Card: React.FC<Props> = ({ pokemon: { image, name, abilities } }) => {
+const Card: React.FC<Props> = ({ pokemon }) => {
 	const { colorMode } = useColorMode();
+	const [pokemons, setPokemons] = useRecoilState(cartState);
+
+	const addPokemonToCart = () => {
+		const newList = [...pokemons, pokemon.id];
+		setPokemons(newList);
+	};
+
 	const bgColor = { light: 'gray.500', dark: 'gray.200' };
 	const color = { light: 'white', dark: 'gray.800' };
+	const { name, image } = pokemon;
 	return (
 		<Box m={5} bg={bgColor[colorMode]} rounded={5} shadow='5px' minH={250}>
 			<Flex>
@@ -18,6 +35,15 @@ const Card: React.FC<Props> = ({ pokemon: { image, name, abilities } }) => {
 					{name.toUpperCase()}
 				</Heading>
 			</Flex>
+			<Heading as='h2' color={color[colorMode]}>
+				Price ${getPokemonPrice(pokemon.id)}
+			</Heading>
+			<IconButton
+				color={color[colorMode]}
+				onClick={addPokemonToCart}
+				icon='add'
+				aria-label='Add to cart'
+			></IconButton>
 		</Box>
 	);
 };
