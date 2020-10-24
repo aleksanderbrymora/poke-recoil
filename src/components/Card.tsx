@@ -27,6 +27,7 @@ const Card: React.FC<Props> = ({ pokemon }) => {
 	const bgColor = { light: 'gray.500', dark: 'gray.200' };
 	const color = { light: 'white', dark: 'gray.800' };
 	const { name, image } = pokemon;
+
 	return (
 		<Box m={5} bg={bgColor[colorMode]} rounded={5} shadow='5px' minH={250}>
 			<Flex>
@@ -35,7 +36,7 @@ const Card: React.FC<Props> = ({ pokemon }) => {
 					{name.toUpperCase()}
 				</Heading>
 			</Flex>
-			<Heading as='h2' color={color[colorMode]}>
+			<Heading as='h2' size='sm' textAlign='center' color={color[colorMode]}>
 				Price ${getPokemonPrice(pokemon.id)}
 			</Heading>
 			<IconButton
@@ -43,6 +44,8 @@ const Card: React.FC<Props> = ({ pokemon }) => {
 				onClick={addPokemonToCart}
 				icon='add'
 				aria-label='Add to cart'
+				display='block'
+				m='auto'
 			></IconButton>
 		</Box>
 	);

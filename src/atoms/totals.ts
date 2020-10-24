@@ -1,4 +1,5 @@
 import { selector } from 'recoil';
+import { isFunctionDeclaration } from 'typescript';
 import { getPokemonPrice, getPokemonById } from '../db';
 import { cartState } from './cart';
 
@@ -6,11 +7,8 @@ export const totalsState = selector({
 	key: 'totalsState',
 	get: ({ get }) => {
 		const cart = get(cartState);
-		const subtotal = cart
-			.map((p) => getPokemonPrice(p))
-			.reduce((a, b) => a + b, 0);
-
 		const receipt = getReceipt(cart);
+		const subtotal = receipt.reduce((acc, curr) => acc + curr.price, 0);
 
 		return {
 			subtotal,
@@ -19,9 +17,11 @@ export const totalsState = selector({
 	},
 });
 
-interface ReceiptItem {
+export interface ReceiptItem {
+	id: number;
 	name: string;
 	price: number;
+	amount: number;
 }
 
 type Receipt = ReceiptItem[];
@@ -30,8 +30,13 @@ const getReceipt = (cart: number[]): Receipt => {
 	const items = {};
 	cart.forEach((i) => (i in items ? items[i]++ : (items[i] = 1)));
 	return Object.entries(items).map(([id, amount]) => {
-		const name = getPokemonById(Number(id)).name;
+		const found = getPokemonById(Number(id));
 		const price = getPokemonPrice(Number(id)) * Number(amount);
-		return { name, price };
+		return {
+			name: found.name,
+			id: found.id,
+			price,
+			amount: Number(amount),
+		};
 	});
 };
