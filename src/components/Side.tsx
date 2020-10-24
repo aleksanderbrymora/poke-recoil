@@ -3,11 +3,12 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { totalsState } from '../atoms/totals';
 import CartItem from './CartItem';
+import Shipping from './Shipping';
 
 const Side = () => {
 	const totals = useRecoilValue(totalsState);
 	const { colorMode } = useColorMode();
-	const bgColor = { light: 'gray.500', dark: 'gray.200' };
+	const bgColor = { light: 'gray.500', dark: 'red.300' };
 	const color = { light: 'white', dark: 'gray.800' };
 	return (
 		<Box
@@ -27,12 +28,16 @@ const Side = () => {
 					? 'Currentrly in your cart:'
 					: 'No items yet'}
 			</Heading>
-			<Box mt='2rem'>
-				{totals.receipt.map((i) => (
-					<CartItem item={i} />
-				))}
-			</Box>
-			{/* <pre>{JSON.stringify(totals, null, 2)}</pre> */}
+			{totals.receipt.length && (
+				<>
+					<Box mt='2rem'>
+						{totals.receipt.map((i) => (
+							<CartItem item={i} />
+						))}
+					</Box>
+					<Shipping />
+				</>
+			)}
 		</Box>
 	);
 };
