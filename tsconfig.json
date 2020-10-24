@@ -19,7 +19,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "rootDir": "."
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@state": ["src/atoms"]
+    }
   },
   "include": [
     "src"
