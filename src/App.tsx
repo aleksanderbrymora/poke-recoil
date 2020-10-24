@@ -1,13 +1,16 @@
+import { Grid } from '@chakra-ui/core';
 import React from 'react';
 import Main from './components/Main';
 import Side from './components/Side';
+import ThemeToggle from './components/ThemeToggle';
 
 const App = () => {
 	return (
-		<div className='App grid grid-cols-6 container mx-auto'>
+		<Grid templateColumns='5fr 1fr' maxW='1080px' mx='auto'>
+			<ThemeToggle />
 			<Main />
 			<Side />
-		</div>
+		</Grid>
 	);
 };
 

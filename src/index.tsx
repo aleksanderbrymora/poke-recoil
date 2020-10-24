@@ -1,13 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './assets/main.css';
 import { RecoilRoot } from 'recoil';
+import {
+	ThemeProvider,
+	theme,
+	CSSReset,
+	ColorModeProvider,
+} from '@chakra-ui/core';
 
+// Use at the root of your app
 ReactDOM.render(
 	<React.StrictMode>
 		<RecoilRoot>
-			<App />
+			<ThemeProvider theme={theme}>
+				<ColorModeProvider>
+					<CSSReset />
+					<App />
+				</ColorModeProvider>
+			</ThemeProvider>
 		</RecoilRoot>
 	</React.StrictMode>,
 	document.getElementById('root'),
