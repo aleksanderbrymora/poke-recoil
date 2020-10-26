@@ -27,11 +27,11 @@ const Side = () => {
 			<Heading
 				as='h3'
 				size='lg'
-				mt='1rem'
+				m='1rem'
 				textAlign={totals.receipt.length > 0 ? 'left' : 'center'}
 			>
 				{totals.receipt.length > 0
-					? 'Currentrly in your cart:'
+					? 'Currently in your cart:'
 					: 'There are no items in your cart'}
 			</Heading>
 
