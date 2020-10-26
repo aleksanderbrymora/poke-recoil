@@ -12,7 +12,7 @@ const Side = () => {
 	return (
 		<Box
 			position='sticky'
-			top='0'
+			top='1rem'
 			height='fit-content'
 			bg={bgColor[colorMode]}
 			w='100%'
