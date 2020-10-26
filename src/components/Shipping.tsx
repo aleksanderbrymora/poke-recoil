@@ -17,7 +17,7 @@ const Shipping = () => {
 		<Box mt='2rem'>
 			<RadioGroup value={shipping.name} onChange={changeShipping}>
 				{options.map((o) => (
-					<Radio color='gray' value={o.name}>
+					<Radio color='gray' key={o.name} value={o.name}>
 						{o.name} - ${o.price}
 					</Radio>
 				))}

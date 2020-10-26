@@ -1,5 +1,4 @@
 import { selector } from 'recoil';
-import { isFunctionDeclaration } from 'typescript';
 import { getPokemonPrice, getPokemonById } from '../db';
 import { cartState } from './cart';
 import { shippingState } from './shipping';

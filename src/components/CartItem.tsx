@@ -26,19 +26,26 @@ const CartItem: React.FC<{ item: ReceiptItem }> = ({ item }) => {
 			p='0.5rem 1rem'
 		>
 			<Flex alignItems='center'>
-				<Heading as='h4' size='md'>
-					{item.name} x{item.amount}
-				</Heading>
-				<IconButton
-					onClick={removeOne}
-					icon='minus'
-					aria-label='remove one of this item'
-				/>
-				<IconButton
-					onClick={addOne}
-					icon='add'
-					aria-label='add more of this item'
-				/>
+				<Flex flexDir='column' justifyContent='space-between'>
+					<Heading as='h4' size='md'>
+						{item.name} x{item.amount}
+					</Heading>
+					<Flex alignItems='center' mt='1rem'>
+						<Box>
+							<IconButton
+								onClick={removeOne}
+								icon='minus'
+								aria-label='remove one of this item'
+								mr='1rem'
+							/>
+							<IconButton
+								onClick={addOne}
+								icon='add'
+								aria-label='add more of this item'
+							/>
+						</Box>
+					</Flex>
+				</Flex>
 			</Flex>
 			<Heading as='h4' size='md'>
 				${item.price}
