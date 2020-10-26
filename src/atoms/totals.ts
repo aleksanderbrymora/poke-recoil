@@ -2,15 +2,19 @@ import { selector } from 'recoil';
 import { isFunctionDeclaration } from 'typescript';
 import { getPokemonPrice, getPokemonById } from '../db';
 import { cartState } from './cart';
+import { shippingState } from './shipping';
 
 export const totalsState = selector({
 	key: 'totalsState',
 	get: ({ get }) => {
 		const cart = get(cartState);
+		const shipping = get(shippingState);
 		const receipt = getReceipt(cart);
 		const subtotal = receipt.reduce((acc, curr) => acc + curr.price, 0);
+		const total = subtotal + shipping.price;
 
 		return {
+			total,
 			subtotal,
 			receipt,
 		};
