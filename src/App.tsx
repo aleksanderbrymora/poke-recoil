@@ -1,6 +1,6 @@
 import { Grid } from '@chakra-ui/core';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
+// import { useRecoilValue } from 'recoil';
 // import { cartState } from './atoms';
 import Main from './components/Main';
 import Side from './components/Side';
