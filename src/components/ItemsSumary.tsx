@@ -26,7 +26,6 @@ export const ItemsSumary: React.FC = () => {
 
 	return (
 		<>
-			<pre>{JSON.stringify(totals, null, 2)}</pre>
 			<Box mt='2rem'>
 				{totals.receipt.map((i) => (
 					<CartItem key={i.id} item={i} />

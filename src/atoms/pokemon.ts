@@ -9,7 +9,9 @@ class FilteredPokemon {
 		this.pokemon = getAllPokemon();
 	}
 	sortBy(by: SortBy, direction: 'asc' | 'desc') {
-		if (by === 'popular' || by === undefined) return this;
+		if (by === 'popular' || by === undefined || this.pokemon.length === 0) {
+			return this;
+		}
 		if (by === 'name') {
 			this.pokemon = this.pokemon.sort((a, b) => {
 				return (
@@ -24,12 +26,14 @@ class FilteredPokemon {
 		return this;
 	}
 	filterMinMax(stat: string, { min, max }: MinMax) {
+		if (this.pokemon.length === 0) return this;
 		this.pokemon = this.pokemon
 			.filter((p) => p[stat] < max.current)
 			.filter((p) => p[stat] > min.current);
 		return this;
 	}
 	filterByName(name: string) {
+		if (this.pokemon.length === 0) return this;
 		if (name === '') return this;
 		this.pokemon = this.pokemon.filter((p) =>
 			p.name.includes(name.toLowerCase()),
@@ -37,6 +41,7 @@ class FilteredPokemon {
 		return this;
 	}
 	filterByType(type: string) {
+		if (this.pokemon.length === 0) return this;
 		if (type === '') return this;
 		this.pokemon = this.pokemon.filter(
 			(p) => p.types.filter((t) => t.includes(type.toLowerCase())).length > 0,

@@ -71,7 +71,6 @@ const SortOptions = () => {
 					aria-label='change sort direction'
 				/>
 			</Flex>
-			<pre>{JSON.stringify(sortVal, null, 2)}</pre>
 		</Box>
 	);
 };
