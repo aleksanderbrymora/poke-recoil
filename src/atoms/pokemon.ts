@@ -28,6 +28,9 @@ class FilteredPokemon {
 	getFiltered(): Pokemon[] {
 		return this.pokemon;
 	}
+	report() {
+		console.log(this.pokemon);
+	}
 }
 
 export const pokemonState = selector({

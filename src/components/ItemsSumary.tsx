@@ -65,7 +65,7 @@ const PayMe: React.FC = () => {
 				Pay me pls
 			</Button>
 
-			<Modal isOpen={isOpen} onClose={onClose} size='xl'>
+			<Modal preserveScrollBarGap isOpen={isOpen} onClose={onClose} size='xl'>
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader>Payment</ModalHeader>

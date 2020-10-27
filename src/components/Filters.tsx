@@ -8,10 +8,10 @@ import {
 	SliderThumb,
 	SliderTrack,
 } from '@chakra-ui/core';
-import React, { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, { ChangeEvent, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { filterState, MinMax } from '../atoms/filters';
-import { pokemonState } from '../atoms/pokemon';
+import { capitalize } from '../utils/capitalize';
 
 const Filters = () => {
 	const filters = useRecoilValue(filterState);
@@ -27,9 +27,34 @@ const Filters = () => {
 		>
 			{/* <pre>{JSON.stringify(filters, null, 2)}</pre> */}
 			<small>This is wonky but I like it, so it stayed</small>
+			<FilterInput name='name' />
+			<FilterInput name='type' />
 			<MinMaxSlider name='Experience' stats={filters.experience} />
 			<MinMaxSlider name='Height' stats={filters.height} />
 			<MinMaxSlider name='Weight' stats={filters.weight} />
+		</Box>
+	);
+};
+
+const FilterInput: React.FC<{ name: string }> = ({ name }) => {
+	const setFilters = useSetRecoilState(filterState);
+
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setFilters((prev) => ({
+			...prev,
+			[name]: e.target.value,
+		}));
+	};
+
+	return (
+		<Box my='1rem'>
+			<label htmlFor={`search-${name}`}>Search by {name}</label>
+			<Input
+				onChange={handleChange}
+				id={`search-${name}`}
+				placeholder={capitalize(name)}
+				type='search	'
+			/>
 		</Box>
 	);
 };
@@ -39,13 +64,14 @@ const MinMaxSlider: React.FC<{
 	name: string;
 }> = ({ stats, name }) => {
 	const sliderValues = { ...stats };
-	const [filters, setFilters] = useRecoilState(filterState);
+	const setFilters = useSetRecoilState(filterState);
 
 	const [focus, setFocus] = useState<'min' | 'max'>('min');
 
 	const handleChange = (val: number) => {
 		setFilters((prev) => {
 			const prevStat: MinMax = prev[name.toLowerCase()];
+			// todo add a blocking function that checks that minimum goes over max
 			return {
 				...prev,
 				[name.toLowerCase()]: {
@@ -72,6 +98,8 @@ const MinMaxSlider: React.FC<{
 						size='sm'
 						mx='1rem'
 						onFocus={() => setFocus('min')}
+						min={stats.min.original}
+						max={stats.max.current}
 						type='number'
 						onChange={(e) => handleChange(e.target.value)}
 					/>
