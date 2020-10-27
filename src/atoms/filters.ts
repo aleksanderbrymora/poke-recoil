@@ -9,16 +9,32 @@ interface Filters {
 	type: string;
 }
 
-interface MinMax {
-	min: number;
-	max: number;
+export interface MinMax {
+	min: {
+		original: number;
+		current: number;
+	};
+	max: {
+		original: number;
+		current: number;
+	};
 }
 
-const findMinMax = (stat: string): MinMax => {
+const findMinMax = (stat: string) => {
 	const all = getAllPokemon();
-	return {
+	const calcs = {
 		min: all.reduce((p, c) => (p <= c[stat] ? p : c[stat]), Infinity),
 		max: all.reduce((p, c) => (p >= c[stat] ? p : c[stat]), 0),
+	};
+	return {
+		min: {
+			original: calcs.min,
+			current: calcs.min,
+		},
+		max: {
+			original: calcs.max,
+			current: calcs.max,
+		},
 	};
 };
 

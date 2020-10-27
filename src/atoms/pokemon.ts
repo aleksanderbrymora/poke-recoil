@@ -1,13 +1,15 @@
 import { selector } from 'recoil';
 import { getAllPokemon, Pokemon } from '../db';
-import { filterState } from './filters';
+import { filterState, MinMax } from './filters';
 
 const filterMinMax = (
 	all: Pokemon[],
 	stat: string,
-	{ min, max }: { max: number; min: number },
+	{ min, max }: MinMax,
 ): Pokemon[] => {
-	return all.filter((p) => p[stat] < max).filter((p) => p[stat] > min);
+	return all
+		.filter((p) => p[stat] < max.current)
+		.filter((p) => p[stat] > min.current);
 };
 
 // Object.defineProperty(Array.prototype, 'minMax', {

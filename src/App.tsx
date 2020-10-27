@@ -9,7 +9,7 @@ const App = () => {
 	return (
 		<>
 			<Grid
-				templateColumns='2fr 5fr 2fr'
+				templateColumns='3fr 5fr 2fr'
 				maxW='1200px'
 				mx='auto'
 				py='1rem'
