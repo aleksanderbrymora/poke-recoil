@@ -1,17 +1,11 @@
-import {
-	Box,
-	Flex,
-	Heading,
-	Input,
-	Slider,
-	SliderFilledTrack,
-	SliderThumb,
-	SliderTrack,
-} from '@chakra-ui/core';
-import React, { ChangeEvent, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { filterState, MinMax } from '../atoms/filters';
+import { Box, Button, Flex, IconButton, Select } from '@chakra-ui/core';
+import React from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { filterState } from '../atoms/filters';
+import { Sort, SortBy, sortState } from '../atoms/sort';
 import { capitalize } from '../utils/capitalize';
+import { FilterInput } from './FilterInput';
+import { MinMaxSlider } from './MinMaxSlider';
 
 const Filters = () => {
 	const filters = useRecoilValue(filterState);
@@ -27,6 +21,7 @@ const Filters = () => {
 		>
 			{/* <pre>{JSON.stringify(filters, null, 2)}</pre> */}
 			<small>This is wonky but I like it, so it stayed</small>
+			<SortOptions />
 			<FilterInput name='name' />
 			<FilterInput name='type' />
 			<MinMaxSlider name='Price' stats={filters.price} />
@@ -37,94 +32,46 @@ const Filters = () => {
 	);
 };
 
-const FilterInput: React.FC<{ name: string }> = ({ name }) => {
-	const setFilters = useSetRecoilState(filterState);
+const SortOptions = () => {
+	const [sortVal, setSort] = useRecoilState(sortState);
+	const options: SortBy[] = ['name', 'price', 'experience', 'height', 'weight'];
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setFilters((prev) => ({
+	const handleSortTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		const newVal: SortBy = e.target.value as SortBy;
+		if (options.includes(newVal)) {
+			setSort((prev) => ({ ...prev, by: newVal }));
+		}
+	};
+
+	const handleDirectionToggle = () => {
+		setSort((prev) => ({
 			...prev,
-			[name]: e.target.value,
+			direction: prev.direction === 'asc' ? 'desc' : 'asc',
 		}));
 	};
 
 	return (
-		<Box my='1rem'>
-			<label htmlFor={`search-${name}`}>Search by {name}</label>
-			<Input
-				onChange={handleChange}
-				id={`search-${name}`}
-				placeholder={capitalize(name)}
-				type='search	'
-			/>
-		</Box>
-	);
-};
-
-const MinMaxSlider: React.FC<{
-	stats: MinMax;
-	name: string;
-}> = ({ stats, name }) => {
-	const sliderValues = { ...stats };
-	const setFilters = useSetRecoilState(filterState);
-
-	const [focus, setFocus] = useState<'min' | 'max'>('min');
-
-	const handleChange = (val: number) => {
-		setFilters((prev) => {
-			const prevStat: MinMax = prev[name.toLowerCase()];
-			// todo add a blocking function that checks that minimum goes over max
-			return {
-				...prev,
-				[name.toLowerCase()]: {
-					...prevStat,
-					[focus]: {
-						...prevStat[focus],
-						current: val,
-					},
-				},
-			};
-		});
-	};
-
-	return (
 		<Box mt='1rem'>
-			<Flex justifyContent='space-between'>
-				<Heading size='md' as='h4'>
-					{name}
-				</Heading>
-				<Flex w='10rem'>
-					<Input
-						value={stats.min.current}
-						placeholder='min'
-						size='sm'
-						mx='1rem'
-						onFocus={() => setFocus('min')}
-						min={stats.min.original}
-						max={stats.max.current}
-						type='number'
-						onChange={(e) => handleChange(e.target.value)}
-					/>
-					<Input
-						value={stats.max.current}
-						placeholder='max'
-						size='sm'
-						onFocus={() => setFocus('max')}
-						type='number'
-						onChange={(e) => handleChange(e.target.value)}
-					/>
-				</Flex>
+			<label htmlFor='sorting'>Sort by</label>
+			<Flex>
+				<Select
+					onChange={handleSortTypeChange}
+					id='sorting'
+					variant='filled'
+					placeholder='Select option'
+					value={sortVal.by}
+				>
+					{options.map((o) => (
+						<option value={o}>{capitalize(o)}</option>
+					))}
+				</Select>
+				<IconButton
+					onClick={handleDirectionToggle}
+					icon={sortVal.direction === 'asc' ? 'triangle-down' : 'triangle-up'}
+					aria-label='change sort direction'
+				/>
 			</Flex>
-			<Slider
-				onChange={handleChange}
-				defaultValue={stats[focus].current}
-				max={sliderValues.max.original}
-				min={sliderValues.min.original}
-				value={stats[focus].current}
-			>
-				<SliderTrack />
-				<SliderFilledTrack />
-				<SliderThumb />
-			</Slider>
+			<pre>{JSON.stringify(sortVal, null, 2)}</pre>
 		</Box>
 	);
 };
