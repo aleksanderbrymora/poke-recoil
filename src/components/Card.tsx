@@ -10,6 +10,7 @@ import React from 'react';
 import { getPokemonPrice, Pokemon } from '../db';
 import { cartState } from '../atoms/cart';
 import { useRecoilState } from 'recoil';
+import { capitalize } from '../utils/capitalize';
 
 interface Props {
 	pokemon: Pokemon;
@@ -40,7 +41,7 @@ const Card: React.FC<Props> = ({ pokemon }) => {
 			<Flex>
 				<Image src={image} w='60%' marginLeft={-10} marginTop={-10} />
 				<Heading as='h1' size='sm' color={color[colorMode]} mt={5}>
-					{name.toUpperCase()}
+					{capitalize(name)}
 				</Heading>
 			</Flex>
 			<Heading as='h2' size='sm' textAlign='center' color={color[colorMode]}>
