@@ -9,7 +9,10 @@ export const totalsState = selector({
 		const cart = get(cartState);
 		const shipping = get(shippingState);
 		const receipt = getReceipt(cart);
-		const subtotal = receipt.reduce((acc, curr) => acc + curr.price, 0);
+		const subtotal = receipt.reduce(
+			(acc, curr) => acc + curr.price * curr.amount,
+			0,
+		);
 		const total = subtotal + shipping.price;
 
 		return {

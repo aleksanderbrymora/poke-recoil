@@ -49,7 +49,7 @@ const CartItem: React.FC<{ item: ReceiptItem }> = ({ item }) => {
 				</Flex>
 			</Flex>
 			<Heading as='h4' size='md'>
-				${item.price}
+				${item.price * item.amount}
 			</Heading>
 		</Flex>
 	);
