@@ -13,6 +13,7 @@ export type Pokemon = {
 		name: string;
 		image: string;
 	}[];
+	price?: number;
 	experience: number;
 	height: number;
 	weight: number;
@@ -27,11 +28,12 @@ export type Pokemon = {
 	types: string[];
 };
 
-export const getAllPokemon = (): Pokemon[] => pokemon;
+export const getAllPokemon = (): Pokemon[] =>
+	pokemon.map((p) => ({ ...p, price: p.abilities.length * p.experience }));
 export const getPokemonById = (id: number): Pokemon =>
 	pokemon.find((p) => p.id === id)!;
-export const getPokemonPrice = (id: number): number => {
-	const p = getPokemonById(id);
-	const price = p.abilities.length * p.experience;
-	return price;
-};
+// export const getPokemonPrice = (id: number): number => {
+// 	const p = getPokemonById(id);
+// 	const price = p.abilities.length * p.experience;
+// 	return price;
+// };

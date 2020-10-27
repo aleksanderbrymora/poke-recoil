@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { getPokemonPrice, getPokemonById } from '../db';
+import { getPokemonById } from '../db';
 import { cartState } from './cart';
 import { shippingState } from './shipping';
 
@@ -34,11 +34,10 @@ const getReceipt = (cart: number[]): Receipt => {
 	cart.forEach((i) => (i in items ? items[i]++ : (items[i] = 1)));
 	return Object.entries(items).map(([id, amount]) => {
 		const found = getPokemonById(Number(id));
-		const price = getPokemonPrice(Number(id)) * Number(amount);
 		return {
 			name: found.name,
 			id: found.id,
-			price,
+			price: found.price!,
 			amount: Number(amount),
 		};
 	});

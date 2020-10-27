@@ -29,6 +29,7 @@ const Filters = () => {
 			<small>This is wonky but I like it, so it stayed</small>
 			<FilterInput name='name' />
 			<FilterInput name='type' />
+			<MinMaxSlider name='Price' stats={filters.price} />
 			<MinMaxSlider name='Experience' stats={filters.experience} />
 			<MinMaxSlider name='Height' stats={filters.height} />
 			<MinMaxSlider name='Weight' stats={filters.weight} />

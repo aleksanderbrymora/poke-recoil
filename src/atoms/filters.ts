@@ -1,10 +1,11 @@
 import { atom } from 'recoil';
-import { getAllPokemon } from '../db';
+import { getAllPokemon, Pokemon } from '../db';
 
 interface Filters {
 	experience: MinMax;
 	height: MinMax;
 	weight: MinMax;
+	price: MinMax;
 	name: string;
 	type: string;
 }
@@ -42,10 +43,12 @@ const initial = (): Filters => {
 	const experience = findMinMax('experience');
 	const height = findMinMax('height');
 	const weight = findMinMax('weight');
+	const price = findMinMax('price');
 	return {
 		experience,
 		height,
 		weight,
+		price,
 		name: '',
 		type: '',
 	};

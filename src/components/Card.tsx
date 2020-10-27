@@ -7,7 +7,7 @@ import {
 	useColorMode,
 } from '@chakra-ui/core';
 import React from 'react';
-import { getPokemonPrice, Pokemon } from '../db';
+import { Pokemon } from '../db';
 import { cartState } from '../atoms/cart';
 import { useRecoilState } from 'recoil';
 import { capitalize } from '../utils/capitalize';
@@ -45,7 +45,7 @@ const Card: React.FC<Props> = ({ pokemon }) => {
 				</Heading>
 			</Flex>
 			<Heading as='h2' size='sm' textAlign='center' color={color[colorMode]}>
-				Price ${getPokemonPrice(pokemon.id)}
+				Price ${pokemon.price!}
 			</Heading>
 			<IconButton
 				color={color[colorMode]}
