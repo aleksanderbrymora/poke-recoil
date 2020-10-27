@@ -10,7 +10,6 @@ import {
 	ModalOverlay,
 	useDisclosure,
 } from '@chakra-ui/core';
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { shippingState } from '../atoms/shipping';
@@ -42,22 +41,6 @@ export const ItemsSumary: React.FC = () => {
 
 const PayMe: React.FC = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const stripe = useStripe();
-	const elements = useElements();
-
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		if (stripe && elements) {
-			try {
-				await stripe.createPaymentMethod({
-					type: 'card',
-					card: elements.getElement(CardElement)!,
-				});
-			} catch (error) {
-				console.log(error);
-			}
-		}
-	};
 
 	return (
 		<>

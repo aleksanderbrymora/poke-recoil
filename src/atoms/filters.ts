@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { getAllPokemon, Pokemon } from '../db';
+import { getAllPokemon } from '../db';
 
 interface Filters {
 	experience: MinMax;

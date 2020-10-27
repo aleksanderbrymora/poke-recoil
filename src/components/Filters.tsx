@@ -1,8 +1,8 @@
-import { Box, Button, Flex, IconButton, Select } from '@chakra-ui/core';
+import { Box, Flex, IconButton, Select } from '@chakra-ui/core';
 import React from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { filterState } from '../atoms/filters';
-import { Sort, SortBy, sortState } from '../atoms/sort';
+import { SortBy, sortState } from '../atoms/sort';
 import { capitalize } from '../utils/capitalize';
 import { FilterInput } from './FilterInput';
 import { MinMaxSlider } from './MinMaxSlider';
